@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Student_Staff_Card</string>
+
+
+    <string name="forgot_password"><u>Forgot Password</u>.</string>
+
+
+    <string name="dep_prompt">Choose a Department</string>
+
+    <string-array name="dep_arrays">
+
+        <item> Choose a Department</item>
+        <item>Computer Science</item>
+        <item>Physics</item>
+        <item>English</item>
+        <item>Udru</item>
+        <item>Chemistry</item>
+    </string-array>
+
+
+    <string name="des_prompt">Choose a Department</string>
+
+    <string-array name="des_arrays">
+
+        <item> Choose a Designation</item>
+        <item>Lecturer</item>
+        <item>Assistant Professor</item>
+        <item>Associate Professor</item>
+        <item>Professor</item>
+    </string-array>
+</resources>
