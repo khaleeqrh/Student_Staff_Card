@@ -49,16 +49,13 @@ public class StudentModel {
      * @param firstName
      * @param lastName
      * @param fatherName
-     * @param createdAt
      * @param gender
      * @param contact
      * @param adress
-     * @param id
-     * @param updatedAt
      */
-    public StudentModel(Integer id, String firstName, String lastName, String fatherName, String regNo, String gender, String adress, String contact, String createdAt, String updatedAt) {
+    public StudentModel(String firstName, String lastName, String fatherName, String regNo, String gender, String adress, String contact) {
         super();
-        this.id = id;
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.fatherName = fatherName;
@@ -66,17 +63,12 @@ public class StudentModel {
         this.gender = gender;
         this.adress = adress;
         this.contact = contact;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
