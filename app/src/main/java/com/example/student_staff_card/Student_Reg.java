@@ -1,6 +1,7 @@
 package com.example.student_staff_card;
 
 import androidx.appcompat.app.AppCompatActivity;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,8 +41,7 @@ public class Student_Reg extends AppCompatActivity {
         fathername = findViewById(R.id.fathername);
         address = findViewById(R.id.address);
         rggender = findViewById(R.id.radioGrp);
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("192.168.137.1:8080/api").addConverterFactory(GsonConverterFactory.create()).build();
-        studentStaffCard = retrofit.create(StudentStaffCard.class);
+
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +53,23 @@ public class Student_Reg extends AppCompatActivity {
                 } else {
                     gender = "Female";
                 }
-                addstudent(firstname.getText().toString(), lastname.getText().toString(), fathername.getText().toString(), "12", gender, address.getText().toString(), contactnum.getText().toString());
+                Call<ResponseBody> call= RetrofitClient.getInstance().getApi().createstudentPost(firstname.getText().toString(),
+                        lastname.getText().toString(),
+                        fathername.getText().toString(), gender,
+                        address.getText().toString(), contactnum.getText().toString());
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        String resp=response.body().toString();
+                        Toast.makeText(getApplicationContext(),resp.toString(),Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
 
 
@@ -61,24 +77,5 @@ public class Student_Reg extends AppCompatActivity {
 
     }
 
-    // public StudentModel(String firstName, String lastName, String fatherName, String regNo, String gender, String adress, String contact) {
-    private void addstudent(String Firstname, String Last_name, String FatherName, String Regno, String Gender, String Address, String Contact) {
-        StudentModel post = new StudentModel(Firstname, Last_name, FatherName, Regno, Gender, Address, Contact);
 
-        Call<StudentModel> call = studentStaffCard.createstudentPost(post);
-        call.enqueue(new Callback<StudentModel>() {
-            @Override
-            public void onResponse(Call<StudentModel> call, Response<StudentModel> response) {
-                if (!response.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), response.code(), Toast.LENGTH_SHORT).show();
-                }
-                StudentModel student= response.body();
-            }
-
-            @Override
-            public void onFailure(Call<StudentModel> call, Throwable t) {
-
-            }
-        });
-    }
 }
