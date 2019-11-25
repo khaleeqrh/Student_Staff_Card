@@ -21,6 +21,8 @@ EditText eduser, edpassword;
         eduser=findViewById(R.id.user);
         edpassword=findViewById(R.id.password);
         login= findViewById ( R.id.login );
+        eduser.setHint(R.string.username);
+        edpassword.setHint(R.string.password);
 
 
 
@@ -34,13 +36,13 @@ EditText eduser, edpassword;
                         password=edpassword.getText().toString();
                         int loginvalid=0;
                         if((username.equals("") || username.equals(null))){
-                            eduser.setError("User Name is not Valid");
+                            eduser.setError(R.string.errorusername+"");
                             eduser.setBackgroundResource(R.drawable.edittext_error);
                         loginvalid=1;
                         }
                         if((password.equals("") || password.equals(null))){
 
-                            edpassword.setError("Please Enter Password !");
+                            edpassword.setError(R.string.errorpassword+"");
                             edpassword.setBackgroundResource(R.drawable.edittext_error);
 
                         loginvalid=1;

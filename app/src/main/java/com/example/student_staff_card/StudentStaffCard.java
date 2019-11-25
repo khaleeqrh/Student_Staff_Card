@@ -31,7 +31,7 @@ public interface StudentStaffCard {
 
     @Multipart
     @POST("staff")
-    Call<ResponseBody> createstaffPost(
+    Call<StaffModel> createstaffPost(
             @Part("First_name") RequestBody FirstName,
             @Part("Last_Name") RequestBody Lastname,
             @Part("Address") RequestBody address,

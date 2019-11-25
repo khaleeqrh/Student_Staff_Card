@@ -25,7 +25,7 @@ public class Student_Reg extends AppCompatActivity {
     RadioButton rdmale, rdfemale;
     EditText firstname, lastname, contactnum, fathername, address;
     RadioGroup rggender;
-    String gender = "Male";
+    String gender =R.string.male+"";
     private StudentStaffCard studentStaffCard;
 
     @Override
@@ -54,27 +54,27 @@ public class Student_Reg extends AppCompatActivity {
                 stdaddress= address.getText().toString();
 
                 if((fname.equals("") || fname.equals(null))){
-                   firstname.setError("Please Enter Valid name");
+                   firstname.setError(R.string.errorusername+"");
                     firstname.setBackgroundResource(R.drawable.edittext_error);
                     valid=0;
                 }
                 if(lname.equals("") || lname.equals(null)){
-                    lastname.setError("Please Enter Valid Last Name");
+                    lastname.setError(R.string.errorusername+"");
                     lastname.setBackgroundResource(R.drawable.edittext_error);
                     valid=0;
                 }
               if(fathrname.equals("") || fathrname.equals(null)){
-                    fathername.setError("Please Enter Father Name");
+                    fathername.setError(R.string.errorfathername+"");
                     fathername.setBackgroundResource(R.drawable.edittext_error);
                     valid=0;
                 }
                 if(conttnum.equals("") || conttnum.equals(null)){
-                    contactnum.setError("Please Enter valid Contact Number");
+                    contactnum.setError(R.string.errorcontact+"");
                     contactnum.setBackgroundResource(R.drawable.edittext_error);
                     valid=0;
                 }
                 if(stdaddress.equals("") || stdaddress.equals(null)){
-                    address.setError("Please Enter valid Address");
+                    address.setError(R.string.erroraddress+"");
                     address.setBackgroundResource(R.drawable.edittext_error);
                     valid=0;
                 }
@@ -82,9 +82,9 @@ public class Student_Reg extends AppCompatActivity {
             if(valid==1) {
                 int radid = rggender.getCheckedRadioButtonId();
                 if (radid == 0) {
-                    gender = "Male";
+                    gender = R.string.male+"";
                 } else
-                    gender = "Female";
+                    gender = R.string.female+"";
 
                         RequestBody fstname=RequestBody.create(MediaType.parse("multipart/form-data"), firstname.getText().toString());
                         RequestBody lstname=RequestBody.create(MediaType.parse("multipart/form-data"), lastname.getText().toString());
