@@ -1,13 +1,12 @@
 package com.example.student_staff_card;
 
 import androidx.appcompat.app.AppCompatActivity;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.POST;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +25,7 @@ public class Student_Reg extends AppCompatActivity {
     RadioButton rdmale, rdfemale;
     EditText firstname, lastname, contactnum, fathername, address;
     RadioGroup rggender;
+    String gender = "Male";
     private StudentStaffCard studentStaffCard;
 
     @Override
@@ -43,32 +43,78 @@ public class Student_Reg extends AppCompatActivity {
         rggender = findViewById(R.id.radioGrp);
 
         Login.setOnClickListener(new View.OnClickListener() {
+            int valid=1;
             @Override
             public void onClick(View v) {
-                String gender = "Male";
+                String fname, lname, fathrname, conttnum, stdaddress;
+                fname=firstname.getText().toString();
+                lname=lastname.getText().toString();
+                fathrname=fathername.getText().toString();
+                conttnum=contactnum.getText().toString();
+                stdaddress= address.getText().toString();
 
+                if((fname.equals("") || fname.equals(null))){
+                   firstname.setError("Please Enter Valid name");
+                    firstname.setBackgroundResource(R.drawable.edittext_error);
+                    valid=0;
+                }
+                if(lname.equals("") || lname.equals(null)){
+                    lastname.setError("Please Enter Valid Last Name");
+                    lastname.setBackgroundResource(R.drawable.edittext_error);
+                    valid=0;
+                }
+              if(fathrname.equals("") || fathrname.equals(null)){
+                    fathername.setError("Please Enter Father Name");
+                    fathername.setBackgroundResource(R.drawable.edittext_error);
+                    valid=0;
+                }
+                if(conttnum.equals("") || conttnum.equals(null)){
+                    contactnum.setError("Please Enter valid Contact Number");
+                    contactnum.setBackgroundResource(R.drawable.edittext_error);
+                    valid=0;
+                }
+                if(stdaddress.equals("") || stdaddress.equals(null)){
+                    address.setError("Please Enter valid Address");
+                    address.setBackgroundResource(R.drawable.edittext_error);
+                    valid=0;
+                }
+
+            if(valid==1) {
                 int radid = rggender.getCheckedRadioButtonId();
                 if (radid == 0) {
                     gender = "Male";
-                } else {
+                } else
                     gender = "Female";
-                }
-                Call<ResponseBody> call= RetrofitClient.getInstance().getApi().createstudentPost(firstname.getText().toString(),
-                        lastname.getText().toString(),
-                        fathername.getText().toString(), gender,
-                        address.getText().toString(), contactnum.getText().toString());
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        String resp=response.body().toString();
-                        Toast.makeText(getApplicationContext(),resp.toString(),Toast.LENGTH_SHORT).show();
-                    }
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        RequestBody fstname=RequestBody.create(MediaType.parse("multipart/form-data"), firstname.getText().toString());
+                        RequestBody lstname=RequestBody.create(MediaType.parse("multipart/form-data"), lastname.getText().toString());
+                        RequestBody fthername= RequestBody.create(MediaType.parse("multipart/form-data"),fathername.getText().toString());
+                        RequestBody gndr=RequestBody.create(MediaType.parse("multipart/form-data"), gender);
+                        RequestBody adress=RequestBody.create(MediaType.parse("multipart/form-data"),address.getText().toString());
+                        RequestBody cntctnum=RequestBody.create(MediaType.parse("multipart/form-data"), contactnum.getText().toString());
+                        Call<StudentModel> call= RetrofitClient.ApiCalls(getApplicationContext()).createstudentPost(fstname,lstname,
+                                fthername, gndr,
+                                adress, cntctnum);
+                        /*Call<ResponseBody> call = RetrofitClient.getInstance().getApi().createstudentPost(fstname,lstname,
+                                fthername, gndr,
+                               adress, cntctnum);*/
+                        call.enqueue(new Callback<StudentModel>() {
+                            @Override
+                            public void onResponse(Call<StudentModel> call, Response<StudentModel> response) {
+                                String resp = response.body().toString();
+                                Toast.makeText(getApplicationContext(), resp.toString(), Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onFailure(Call<StudentModel> call, Throwable t) {
+                                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
+            }
+
+
 
             }
 

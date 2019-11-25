@@ -28,7 +28,7 @@ public class Home extends AppCompatActivity {
 
         ArrayList<Studentitem> studentitemsList = new ArrayList<>();
 
-/*        studentitemsList.add(new Studentitem (R.drawable.ic_studentreg, "Saeed Khan", "03215618418"));
+        studentitemsList.add(new Studentitem (R.drawable.ic_studentreg, "Saeed Khan", "03215618418"));
         studentitemsList.add(new Studentitem (R.drawable.ic_teacherreg, "Ali Ahmed", "03024854795"));
         studentitemsList.add(new Studentitem (R.drawable.ic_studentreg, "Ahmed Rizwan", "03005821485"));
         studentitemsList.add(new Studentitem (R.drawable.ic_teacherreg, "Hassan Ali", "03028854795"));
@@ -41,9 +41,9 @@ public class Home extends AppCompatActivity {
 
         studentitemsList.add(new Studentitem (R.drawable.ic_studentreg, "Ahmed Rizwan", "03005821485"));
         studentitemsList.add(new Studentitem (R.drawable.ic_teacherreg, "Hassan Khan", "03028854795"));
-*/
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("192.168.137.1:8080/api").addConverterFactory(GsonConverterFactory.create()).build();
+
+       /* Retrofit retrofit = new Retrofit.Builder().baseUrl("192.168.137.1:8080/api").addConverterFactory(GsonConverterFactory.create()).build();
         StudentStaffCard studentStaffCard = retrofit.create(StudentStaffCard.class);
         Call<List<StudentModel>> call = studentStaffCard.getstudents();
         call.enqueue(new Callback<List<StudentModel>>() {
@@ -56,7 +56,7 @@ public class Home extends AppCompatActivity {
             public void onFailure(Call<List<StudentModel>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), t.getMessage().toString(), Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
 
         mRecyclerView = findViewById(R.id.studentrecyclerView);

@@ -32,31 +32,24 @@ EditText eduser, edpassword;
                         String username, password;
                         username=eduser.getText().toString();
                         password=edpassword.getText().toString();
-                        if((username.equals("") || username.equals(null)) && (password.equals("") || password.equals(null))){
-                            eduser.setError("Error");
+                        int loginvalid=0;
+                        if((username.equals("") || username.equals(null))){
+                            eduser.setError("User Name is not Valid");
                             eduser.setBackgroundResource(R.drawable.edittext_error);
-                            edpassword.setError("Error");
-                            edpassword.setBackgroundResource(R.drawable.edittext_error);
+                        loginvalid=1;
                         }
-                        else if(!username.equals("") || !username.equals(null) && (password.equals("") || password.equals(null))){
+                        if((password.equals("") || password.equals(null))){
 
-                            edpassword.setError("Error");
+                            edpassword.setError("Please Enter Password !");
                             edpassword.setBackgroundResource(R.drawable.edittext_error);
-                            eduser.setBackgroundResource(0);
+
+                        loginvalid=1;
                         }
-                        else if((username.equals("") || username.equals(null)) && (!password.equals("") || !password.equals(null))){
-                            edpassword.setBackgroundResource(0);
-                            eduser.setError("Error");
-                            eduser.setBackgroundResource(R.drawable.edittext_error);
-                        }
-                        else if(!username.equals("") && !username.equals(null) && !password.equals("") && !password.equals(null)){
+                        if(loginvalid==0) {
                             Intent i = new Intent ( getApplicationContext (), Home.class );
                             startActivity ( i );
-                        }
-                        else
-                            {
 
-                            }
+                        }
 
 
                     }
