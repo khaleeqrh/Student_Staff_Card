@@ -41,7 +41,8 @@ public class Student_Reg extends AppCompatActivity {
         fathername = findViewById(R.id.fathername);
         address = findViewById(R.id.address);
         rggender = findViewById(R.id.radioGrp);
-
+        rdfemale.setText(R.string.female);
+        rdmale.setText(R.string.male);
         Login.setOnClickListener(new View.OnClickListener() {
             int valid=1;
             @Override

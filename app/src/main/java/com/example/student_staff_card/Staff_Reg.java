@@ -23,6 +23,7 @@ public class Staff_Reg extends AppCompatActivity {
     RadioGroup rggender;
     RadioButton rdmale, rdfemale;
     Spinner spdepartment,spdesignation;
+    int radid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
@@ -41,25 +42,60 @@ public class Staff_Reg extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String gender = "Male";
+                String gender = R.string.male + "";
 
-                int radid = rggender.getCheckedRadioButtonId();
-                if (radid == 0) {
-                    gender = R.string.male+"";
-                } else {
-                    gender = R.string.female+"";
+                int valid = 1;
+                String fname, lname, adres, contactnum;
+                fname = frstnam.getText().toString();
+                lname = lastname.getText().toString();
+                adres = address.getText().toString();
+                contactnum = contact.getText().toString();
+                if (fname.equals("") || fname.equals(null)) {
+                    frstnam.setError(R.string.errorname + "");
+                    frstnam.setBackgroundResource(R.drawable.edittext_error);
+                    valid = 0;
                 }
-                RequestBody fstname=RequestBody.create(MediaType.parse("multipart/form-data"), frstnam.getText().toString());
-                RequestBody lstname=RequestBody.create(MediaType.parse("multipart/form-data"), lastname.getText().toString());
-                RequestBody gndr=RequestBody.create(MediaType.parse("multipart/form-data"), gender);
-                RequestBody adress=RequestBody.create(MediaType.parse("multipart/form-data"),address.getText().toString());
-                RequestBody cntctnum=RequestBody.create(MediaType.parse("multipart/form-data"), contact.getText().toString());
-                RequestBody deprtment=RequestBody.create(MediaType.parse("multipart/form-data"),spdepartment.getSelectedItem().toString());
-                RequestBody desgnation=RequestBody.create(MediaType.parse("multipart/form-data"),spdesignation.getSelectedItem().toString());
+                if (lname.equals("") || lname.equals(null)) {
+                    lastname.setBackgroundResource(R.drawable.edittext_error);
+                    lastname.setError(R.string.errorname + "");
+                    valid = 0;
+                }
 
-                Call<StaffModel> call= RetrofitClient.ApiCalls(getApplicationContext()).createstaffPost(fstname,lstname,
-                         gndr,
-                        adress,deprtment,desgnation);// cntctnum);
+                if (adres.equals("") || adres.equals(null)) {
+                    address.setError(R.string.erroraddress + "");
+                    address.setBackgroundResource(R.drawable.edittext_error);
+                    valid = 0;
+                }
+                if (contactnum.equals("") || contactnum.equals(null)) {
+                    contact.setError(R.string.errorcontact + "");
+                    contact.setBackgroundResource(R.drawable.edittext_error);
+                    valid = 0;
+                }
+
+                if (valid == 1) {
+
+                    radid = rggender.getCheckedRadioButtonId();
+                }
+                if (radid == 0) {
+                    rdmale = findViewById(radid);
+                    gender = rdmale.getText().toString();
+                    //gender = R.string.male+"";
+                } else {
+                    rdmale = findViewById(radid);
+                    gender = rdmale.getText().toString();
+                    //gender = R.string.female+"";
+                }
+                RequestBody fstname = RequestBody.create(MediaType.parse("multipart/form-data"), frstnam.getText().toString());
+                RequestBody lstname = RequestBody.create(MediaType.parse("multipart/form-data"), lastname.getText().toString());
+                RequestBody gndr = RequestBody.create(MediaType.parse("multipart/form-data"), gender);
+                RequestBody adress = RequestBody.create(MediaType.parse("multipart/form-data"), address.getText().toString());
+                RequestBody cntctnum = RequestBody.create(MediaType.parse("multipart/form-data"), contact.getText().toString());
+                RequestBody deprtment = RequestBody.create(MediaType.parse("multipart/form-data"), spdepartment.getSelectedItem().toString());
+                RequestBody desgnation = RequestBody.create(MediaType.parse("multipart/form-data"), spdesignation.getSelectedItem().toString());
+
+                Call<StaffModel> call = RetrofitClient.ApiCalls(getApplicationContext()).createstaffPost(fstname, lstname,
+                        gndr,
+                        adress, deprtment, desgnation);// cntctnum);
 
                 call.enqueue(new Callback<StaffModel>() {
                     @Override
@@ -74,42 +110,8 @@ public class Staff_Reg extends AppCompatActivity {
                     }
                 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-               /* Call<ResponseBody> call= RetrofitClient.getInstance().getApi().createstaffPost(frstnam.getText().toString(),
-                        lastname.getText().toString(),
-                        address.getText().toString(), spdepartment.getSelectedItem().toString(),spdesignation.getSelectedItem().toString(),gender);
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                    }
-                });*/
             }
+
         });
 
 
