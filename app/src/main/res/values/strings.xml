@@ -1,4 +1,7 @@
 <resources>
+
+    <string name="Base_URL">http://192.168.11.39:8080/api/</string>
+
     <string name="app_name">Student_Staff_Card</string>
     <string name="firstname">Enter First Name</string>
     <string name="lastname">Enter Last Name</string>

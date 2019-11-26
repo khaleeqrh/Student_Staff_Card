@@ -86,28 +86,31 @@ public class Student_Reg extends AppCompatActivity {
                     gender = R.string.male+"";
                 } else
                     gender = R.string.female+"";
-
+                StudentStaffCard stf= RetrofitClient.getClient().create(StudentStaffCard.class);
                         RequestBody fstname=RequestBody.create(MediaType.parse("multipart/form-data"), firstname.getText().toString());
                         RequestBody lstname=RequestBody.create(MediaType.parse("multipart/form-data"), lastname.getText().toString());
                         RequestBody fthername= RequestBody.create(MediaType.parse("multipart/form-data"),fathername.getText().toString());
                         RequestBody gndr=RequestBody.create(MediaType.parse("multipart/form-data"), gender);
                         RequestBody adress=RequestBody.create(MediaType.parse("multipart/form-data"),address.getText().toString());
                         RequestBody cntctnum=RequestBody.create(MediaType.parse("multipart/form-data"), contactnum.getText().toString());
-                        Call<StudentModel> call= RetrofitClient.ApiCalls(getApplicationContext()).createstudentPost(fstname,lstname,
+
+                        retrofit2.Call<ResponseBody> call= stf.createstudentPost(
+                                fstname,lstname,
                                 fthername, gndr,
-                                adress, cntctnum);
+                                adress, cntctnum
+                        );
                         /*Call<ResponseBody> call = RetrofitClient.getInstance().getApi().createstudentPost(fstname,lstname,
                                 fthername, gndr,
                                adress, cntctnum);*/
-                        call.enqueue(new Callback<StudentModel>() {
+                        call.enqueue(new Callback<ResponseBody>() {
                             @Override
-                            public void onResponse(Call<StudentModel> call, Response<StudentModel> response) {
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                 String resp = response.body().toString();
                                 Toast.makeText(getApplicationContext(), resp.toString(), Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
-                            public void onFailure(Call<StudentModel> call, Throwable t) {
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
                                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });

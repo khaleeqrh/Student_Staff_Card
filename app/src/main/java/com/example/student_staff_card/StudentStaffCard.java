@@ -5,10 +5,8 @@ import java.util.List;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -18,7 +16,8 @@ public interface StudentStaffCard {
     Call<List<StudentModel>> getstudents();
     @Multipart
     @POST("students")
-    Call<StudentModel> createstudentPost(
+   // @Headers("Content-Type: application/json")
+    Call<ResponseBody> createstudentPost(
             @Part("First_name ") RequestBody Firstname,
             @Part("Last_name") RequestBody Lastname,
             @Part("Father_name") RequestBody Fathername,
@@ -30,8 +29,9 @@ public interface StudentStaffCard {
 
 
     @Multipart
+    //@Headers("Content-Type: application/json")
     @POST("staff")
-    Call<StaffModel> createstaffPost(
+    Call<ResponseBody> createstaffPost(
             @Part("First_name") RequestBody FirstName,
             @Part("Last_Name") RequestBody Lastname,
             @Part("Address") RequestBody address,
@@ -40,5 +40,13 @@ public interface StudentStaffCard {
             @Part("gender_id") RequestBody gander
 
             );
+ @Multipart
+ @POST("login")
+ Call<ResponseBody> loginadmin(
+         @Part("email") RequestBody Email,
+         @Part("password") RequestBody Passward
+ );
+
+
 
 }
