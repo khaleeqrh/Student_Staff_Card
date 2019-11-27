@@ -14,9 +14,10 @@ import retrofit2.http.Part;
 public interface StudentStaffCard {
     @GET("students")
     Call<List<StudentModel>> getstudents();
+
+
     @Multipart
     @POST("students")
-   // @Headers("Content-Type: application/json")
     Call<ResponseBody> createstudentPost(
             @Part("First_name ") RequestBody Firstname,
             @Part("Last_name") RequestBody Lastname,
@@ -29,14 +30,14 @@ public interface StudentStaffCard {
 
 
     @Multipart
-    //@Headers("Content-Type: application/json")
     @POST("staff")
     Call<ResponseBody> createstaffPost(
             @Part("First_name") RequestBody FirstName,
-            @Part("Last_Name") RequestBody Lastname,
-            @Part("Address") RequestBody address,
+            @Part("Last_name") RequestBody Lastname,
             @Part("Department_id") RequestBody Departmetn,
             @Part("Designation_id") RequestBody Designation,
+            @Part("Adress") RequestBody address,
+            @Part("Contact") RequestBody Contact,
             @Part("gender_id") RequestBody gander
 
             );
@@ -44,7 +45,7 @@ public interface StudentStaffCard {
  @POST("login")
  Call<ResponseBody> loginadmin(
          @Part("email") RequestBody Email,
-         @Part("password") RequestBody Passward
+         @Part("password") RequestBody Password
  );
 
 

@@ -75,9 +75,9 @@ public class Staff_Reg extends AppCompatActivity {
 
                 if (valid == 1) {
 
-                    //radid = rggender.getCheckedRadioButtonId();
+                    radid = rggender.getCheckedRadioButtonId();
 
-                    /*if (radid == 0) {
+                    if (radid == 0) {
                         rdmale = findViewById(radid);
                         gender = rdmale.getText().toString();
                         //gender = R.string.male+"";
@@ -85,8 +85,8 @@ public class Staff_Reg extends AppCompatActivity {
                         rdmale = findViewById(radid);
                         gender = rdmale.getText().toString();
                         //
-                    }*/
-                    gender = R.string.female+"";
+                    }
+
                     StudentStaffCard stf= RetrofitClient.getClient().create(StudentStaffCard.class);
                     RequestBody fstname = RequestBody.create(MediaType.parse("multipart/form-data"), frstnam.getText().toString());
                     RequestBody lstname = RequestBody.create(MediaType.parse("multipart/form-data"), lastname.getText().toString());
@@ -98,8 +98,7 @@ public class Staff_Reg extends AppCompatActivity {
 
 
                    Call<ResponseBody> call = stf.createstaffPost(fstname, lstname,
-                            gndr,
-                            adress, deprtment, desgnation);// cntctnum);
+                           deprtment,desgnation,adress,cntctnum,gndr);
 
                     call.enqueue(new Callback<ResponseBody>() {
                         @Override

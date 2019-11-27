@@ -4,6 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class StudentModel {
+    @SerializedName("id")
+    @Expose
+    public Integer id;
     @SerializedName("First_name")
     @Expose
     public String firstName;
@@ -21,19 +24,14 @@ public class StudentModel {
     public String adress;
     @SerializedName("contact")
     @Expose
-    public String contact;
+    public Integer contact;
     @SerializedName("status")
     @Expose
     public String status;
-    @SerializedName("updated_at")
-    @Expose
-    public String updatedAt;
     @SerializedName("created_at")
     @Expose
     public String createdAt;
-    @SerializedName("id")
+    @SerializedName("updated_at")
     @Expose
-    public Integer id;
-
-
+    public String updatedAt;
 }

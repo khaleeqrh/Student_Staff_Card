@@ -1,6 +1,12 @@
 package com.example.student_staff_card;
 
 import androidx.appcompat.app.AppCompatActivity;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +19,7 @@ public class Login extends AppCompatActivity {
 
 EditText eduser, edpassword;
     public Button login;
+    String username, password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
@@ -31,7 +38,7 @@ EditText eduser, edpassword;
                     @Override
                     public void onClick(View v) {
 
-                        String username, password;
+
                         username=eduser.getText().toString();
                         password=edpassword.getText().toString();
                         int loginvalid=0;
@@ -48,8 +55,33 @@ EditText eduser, edpassword;
                         loginvalid=1;
                         }
                         if(loginvalid==0) {
-                            Intent i = new Intent ( getApplicationContext (), Home.class );
-                            startActivity ( i );
+
+                            StudentStaffCard stf= RetrofitClient.getClient().create(StudentStaffCard.class);
+                            RequestBody user = RequestBody.create(MediaType.parse("multipart/form-data"), username);
+                            RequestBody psword = RequestBody.create(MediaType.parse("multipart/form-data"), password);
+                            Call<ResponseBody> call = stf.loginadmin(user, psword);
+
+                            call.enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                                    if(response.code()==200){
+                                            Intent i = new Intent ( getApplicationContext (), Home.class );
+                                            startActivity ( i );
+                                    }
+                                    else{
+                                        Toast.makeText(getApplicationContext(),"Un-Authorised User", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+
+
 
                         }
 
